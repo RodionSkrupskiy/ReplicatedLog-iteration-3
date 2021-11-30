@@ -1,0 +1,13 @@
+version: "2"
+services:
+  master:
+   build: ./master
+   ports: ["50051:50051"]
+  slave1:
+   build: ./slave
+   ports: ["50052:50052"]
+   command: slave1 50052
+  slave2:
+   build: ./slave
+   ports: ["50053:50053"]
+   command: slave2 50053

@@ -1,0 +1,57 @@
+syntax = "proto3";
+//package = com.example.grpc;
+
+//Client sends to Master node string
+message POST {
+    int32 w = 1;
+    string msg = 2;
+}
+
+//Client gets ACK from master node
+message POSTResponse {
+    string msg = 1;
+}
+
+service PostRequestService {
+    rpc PostRequest(POST) returns (POSTResponse);
+}
+
+
+//Client asks Master for replicated log
+message GET {
+    string msg = 1;
+}
+
+//Master node sends list of strings to Client
+message GETResponse {
+    repeated string data = 1;
+}
+
+service GetRequestService {
+    rpc GetRequest(GET) returns (GETResponse);
+}
+
+
+//Call node for a heartbeat
+message AskHeartBeat {
+}
+
+//Response with heartbeat
+message HeartBeat {
+    int32 heartbeat = 1;
+}
+
+service AskHeartBeatService {
+    rpc HeartBeatRequest(AskHeartBeat) returns (HeartBeat);
+}
+
+//Response to client from master with list of available nodes
+message HeartBeats {
+    repeated string address = 1;
+    repeated int32 heartbeats = 2;
+}
+
+service AskHeartBeatsService {
+    rpc HeartBeatRequest(AskHeartBeat) returns (HeartBeats);
+}
+
